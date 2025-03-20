@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <link rel="stylesheet" href="signup.css">
+
+</head>
+<body>
+  <div class="signup-container">
+    <h1>Create Your Account</h1>
+    <form id="signup-form">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <span class="error-message" id="username-error"></span>
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <span class="error-message" id="email-error"></span>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <span class="error-message" id="password-error"></span>
+      </div>
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+        <span class="error-message" id="confirm-password-error"></span>
+      </div>
+      <!-- Terms and Conditions Checkbox -->
+      <div class="input-group terms-group">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I accept the <a href="#" target="_blank">Terms and Conditions</a></label>
+        <span class="error-message" id="terms-error"></span>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
+    <!-- Return to Homepage Link -->
+    <a href="lpage.html" class="homepage-link">Return to Homepage</a>
+  </div>
+
+  <script>
+    // JavaScript for validation
+    const form = document.getElementById('signup-form');
+    const usernameError = document.getElementById('username-error');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const confirmPasswordError = document.getElementById('confirm-password-error');
+    const termsError = document.getElementById('terms-error');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent form submission
+
+      // Reset error messages
+      usernameError.textContent = '';
+      emailError.textContent = '';
+      passwordError.textContent = '';
+      confirmPasswordError.textContent = '';
+      termsError.textContent = '';
+
+      // Get input values
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
+      const termsAccepted = document.getElementById('terms').checked;
+
+      // Validation logic
+      let isValid = true;
+
+      if (username.length < 4) {
+        usernameError.textContent = 'Username must be at least 4 characters long.';
+        isValid = false;
+      }
+
+      if (!validateEmail(email)) {
+        emailError.textContent = 'Please enter a valid email address (e.g., example@gmail.com).';
+        isValid = false;
+      }
+
+      if (password.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters long.';
+        isValid = false;
+      }
+
+      if (password !== confirmPassword) {
+        confirmPasswordError.textContent = 'Passwords do not match.';
+        isValid = false;
+      }
+
+      if (!termsAccepted) {
+        termsError.textContent = 'You must accept the Terms and Conditions.';
+        isValid = false;
+      }
+
+      // If all validations pass
+      if (isValid) {
+        // Store user data in local storage
+        const user = {
+          username: username,
+          email: email,
+          password: password,
+        };
+        localStorage.setItem('user', JSON.stringify(user));
+
+        alert('Signup successful! Redirecting to login page...');
+        // Redirect or perform further actions here
+        window.location.href = 'login.html'; // Redirect to login page after successful signup
+      }
+    });
+
+    // Email validation function
+    function validateEmail(email) {
+      // Regex for basic email validation
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      // Check total length (max 320 characters)
+      if (email.length > 320) {
+        return false;
+      }
+
+      // Split into local and domain parts
+      const parts = email.split('@');
+      if (parts.length !== 2) {
+        return false;
+      }
+
+      const localPart = parts[0];
+      const domainPart = parts[1];
+
+      // Check local part length (max 64 characters)
+      if (localPart.length > 64) {
+        return false;
+      }
+
+      // Check domain part length (max 255 characters)
+      if (domainPart.length > 255) {
+        return false;
+      }
+
+      // Check for spaces
+      if (email.includes(' ')) {
+        return false;
+      }
+
+      // Check regex
+      return regex.test(email);
+    }
+  </script>
+</body>
+</html>

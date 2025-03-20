@@ -1,0 +1,219 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://i.pinimg.com/736x/a1/79/fb/a179fb6748e86d0a4b985459de3ae6ef.jpg'); /* Background image */
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    color: #333;
+    animation: fadeIn 1s ease-in-out; /* Fade-in animation for the entire page */
+  }
+  
+  /* Keyframes for Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+/* Keyframes for Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0); /* Normal position */
+    }
+    40% {
+      transform: translateY(-8px); /* Bounce up */
+    }
+    60% {
+      transform: translateY(-5px); /* Bounce down */
+    }
+  }
+  
+  /* Signup Container */
+  .signup-container {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: slideUp 1s ease-in-out; /* Slide-up animation for the container */
+  }
+  
+  .signup-container h1 {
+    margin-bottom: 24px;
+    font-size: 32px;
+    color: #2575fc;
+    animation: fadeIn 1.5s ease-in-out; /* Fade-in animation for the heading */
+  }
+  
+  /* Input Groups */
+  .input-group {
+    margin-bottom: 16px;
+    text-align: left;
+    animation: fadeIn 2s ease-in-out; /* Fade-in animation for input groups */
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    border-color: #2575fc;
+  }
+  
+  /* Password Wrapper */
+  .password-group .password-wrapper {
+    position: relative;
+  }
+  
+  .password-group .password-wrapper input {
+    padding-right: 40px; /* Space for the eye icon */
+  }
+  
+  .password-group .password-wrapper i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+    transition: color 0.3s ease;
+  }
+  
+  .password-group .password-wrapper i:hover {
+    color: #2575fc;
+  }
+  
+  /* Error Messages */
+  .error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: 4px;
+    display: block;
+    animation: fadeIn 0.5s ease-in-out; /* Fade-in animation for error messages */
+  }
+  
+  /* Button */
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #2575fc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    animation: pulse 5s infinite; /* Pulse animation for the button */
+  }
+  
+  button:hover {
+    background: #1a5bbf;
+    transform: scale(1.05); /* Scale effect on hover */
+    animation: none; /* Disable pulse animation on hover */
+  }
+  
+  /* Login Link */
+  .login-link {
+    margin-top: 16px;
+    font-size: 14px;
+    animation: fadeIn 2.5s ease-in-out; /* Fade-in animation for the login link */
+  }
+  
+  .login-link a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .login-link a:hover {
+    color: #1a5bbf;
+    text-decoration: underline;
+  }
+
+  /* Terms and Conditions Checkbox */
+.terms-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .terms-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto; /* Reset width for checkbox */
+  }
+  
+  .terms-group label {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .terms-group a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .terms-group a:hover {
+    text-decoration: underline;
+  }
+
+  /* Forgot Password Link */
+.forgot-password-link {
+    margin-top: 8px;
+    font-size: 14px;
+    animation: fadeIn 2.5s ease-in-out; /* Fade-in animation for the forgot password link */
+  }
+  
+  .forgot-password-link a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .forgot-password-link a:hover {
+    color: #1a5bbf;
+    text-decoration: underline;
+  }
+
+
+      /* Additional styles for the homepage link */
+      .homepage-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #5687cf;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      .homepage-link:hover {
+        text-decoration: underline;
+      }

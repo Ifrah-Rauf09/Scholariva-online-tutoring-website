@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="signup.css"> <!-- Reuse the same CSS file -->
+  
+</head>
+<body>
+  <div class="signup-container">
+    <h1 class="fade-in">Welcome Back!</h1>
+    <form id="login-form" class="slide-up">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <span class="error-message" id="email-error"></span>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <span class="error-message" id="password-error"></span>
+      </div>
+      <button type="submit" class="pulse">Login</button>
+    </form>
+    <p class="login-link fade-in">Don't have an account? <a href="signup.html">Sign up here</a></p>
+    <!-- Forgot Password Link -->
+    <p class="forgot-password-link fade-in">
+      <a href="forgot.html">Forgot Password?</a>
+    </p>
+    <!-- Return to Homepage Link -->
+    <a href="lpage.html" class="homepage-link">Return to Homepage</a>
+  </div>
+
+  <script>
+    // JavaScript for validation
+    const form = document.getElementById('login-form');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent form submission
+
+      // Reset error messages
+      emailError.textContent = '';
+      passwordError.textContent = '';
+
+      // Get input values
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Retrieve user data from local storage
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      // Validation logic
+      let isValid = true;
+
+      if (!validateEmail(email)) {
+        emailError.textContent = 'Please enter a valid email address (e.g., example@gmail.com).';
+        isValid = false;
+      }
+
+      if (password.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters long.';
+        isValid = false;
+      }
+
+      // Check if email and password match the stored data
+      if (user && user.email === email && user.password === password) {
+        alert('Login successful! Redirecting to home page...');
+        // Redirect to the home page (lpage.html)
+        window.location.href = 'lpage.html'; // Updated to redirect to lpage.html
+      } else {
+        passwordError.textContent = 'Invalid email or password.';
+        isValid = false;
+      }
+    });
+
+    // Email validation function
+    function validateEmail(email) {
+      // Regex for basic email validation
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      // Check total length (max 320 characters)
+      if (email.length > 320) {
+        return false;
+      }
+
+      // Split into local and domain parts
+      const parts = email.split('@');
+      if (parts.length !== 2) {
+        return false;
+      }
+
+      const localPart = parts[0];
+      const domainPart = parts[1];
+
+      // Check local part length (max 64 characters)
+      if (localPart.length > 64) {
+        return false;
+      }
+
+      // Check domain part length (max 255 characters)
+      if (domainPart.length > 255) {
+        return false;
+      }
+
+      // Check for spaces
+      if (email.includes(' ')) {
+        return false;
+      }
+
+      // Check regex
+      return regex.test(email);
+    }
+  </script>
+</body>
+</html>

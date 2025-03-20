@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="signup.css"> <!-- Reuse the same CSS file -->
+</head>
+<body>
+  <div class="signup-container">
+    <h1 class="fade-in">Forgot Password</h1>
+    <form id="forgot-password-form" class="slide-up">
+      <!-- Step 1: Enter Email -->
+      <div id="step-1">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          <span class="error-message" id="email-error"></span>
+        </div>
+        <button type="submit" class="pulse">Send Request</button>
+      </div>
+
+      <!-- Step 2: Enter OTP (Hidden by Default) -->
+      <div id="step-2" style="display: none;">
+        <div class="input-group">
+          <label for="otp">OTP</label>
+          <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+          <span class="error-message" id="otp-error"></span>
+        </div>
+        <button type="button" class="pulse" id="resend-otp">Resend OTP</button>
+        <button type="submit" class="pulse">Verify OTP</button>
+      </div>
+
+      <!-- Step 3: Enter New Password (Hidden by Default) -->
+      <div id="step-3" style="display: none;">
+        <div class="input-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" name="new-password" placeholder="Enter your new password" required>
+          <span class="error-message" id="new-password-error"></span>
+        </div>
+        <div class="input-group">
+          <label for="confirm-new-password">Confirm New Password</label>
+          <input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="Confirm your new password" required>
+          <span class="error-message" id="confirm-new-password-error"></span>
+        </div>
+        <button type="submit" class="pulse">Reset Password</button>
+      </div>
+    </form>
+    <p class="login-link fade-in">Remember your password? <a href="login.html">Login here</a></p>
+  </div>
+
+  <script>
+    // JavaScript for Forgot Password functionality
+    const form = document.getElementById('forgot-password-form');
+    const emailError = document.getElementById('email-error');
+    const otpError = document.getElementById('otp-error');
+    const newPasswordError = document.getElementById('new-password-error');
+    const confirmNewPasswordError = document.getElementById('confirm-new-password-error');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
+    const resendOtpButton = document.getElementById('resend-otp');
+
+    let email = ''; // Store the email for Step 2 and Step 3
+    let otp = ''; // Store the OTP for verification
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent form submission
+
+      // Reset error messages
+      emailError.textContent = '';
+      otpError.textContent = '';
+      newPasswordError.textContent = '';
+      confirmNewPasswordError.textContent = '';
+
+      // Step 1: Send OTP
+      if (step1.style.display !== 'none') {
+        email = document.getElementById('email').value.trim();
+
+        // Validation logic for email
+        if (!validateEmail(email)) {
+          emailError.textContent = 'Please enter a valid email address (e.g., example@gmail.com).';
+          return;
+        }
+
+        // Simulate sending OTP (replace with actual backend logic)
+        otp = generateOTP(); // Generate a random OTP
+        alert(`OTP sent to ${email}. Please check your inbox.`);
+        step1.style.display = 'none'; // Hide Step 1
+        step2.style.display = 'block'; // Show Step 2
+      }
+
+      // Step 2: Verify OTP
+      else if (step2.style.display !== 'none') {
+        const enteredOtp = document.getElementById('otp').value.trim();
+
+        // Validation logic for OTP
+        if (enteredOtp !== otp) {
+          otpError.textContent = 'Invalid OTP. Please try again.';
+          return;
+        }
+
+        alert('OTP verified successfully!');
+        step2.style.display = 'none'; // Hide Step 2
+        step3.style.display = 'block'; // Show Step 3
+      }
+
+      // Step 3: Reset Password
+      else {
+        const newPassword = document.getElementById('new-password').value.trim();
+        const confirmNewPassword = document.getElementById('confirm-new-password').value.trim();
+
+        // Validation logic for new password
+        if (newPassword.length < 6) {
+          newPasswordError.textContent = 'Password must be at least 6 characters long.';
+          return;
+        }
+
+        if (newPassword !== confirmNewPassword) {
+          confirmNewPasswordError.textContent = 'Passwords do not match.';
+          return;
+        }
+
+        // Simulate password reset (replace with actual backend logic)
+        alert('Password reset successful! Redirecting to login page...');
+        window.location.href = 'login.html'; // Redirect to login page
+      }
+    });
+
+    // Resend OTP functionality
+    resendOtpButton.addEventListener('click', () => {
+      // Simulate resending OTP (replace with actual backend logic)
+      otp = generateOTP(); // Generate a new OTP
+      alert(`New OTP sent to ${email}. Please check your inbox.`);
+    });
+
+    // Email validation function
+    function validateEmail(email) {
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return regex.test(email);
+    }
+
+    // Generate a random 6-digit OTP
+    function generateOTP() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+  </script>
+</body>
+</html>
